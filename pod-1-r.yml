@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-1-r
+  labels:
+    app: primeiro-pod
+spec:
+  containers:
+  - name: pod-1-conc-r
+    image: nginx:stable
+    ports:
+      - containerPort: 80

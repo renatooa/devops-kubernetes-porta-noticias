@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-sistema-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db-noticias
+  template:
+    metadata:
+      labels:
+        app: db-noticias
+    spec:
+      containers:
+      - name: db-noticias-cont
+        image: aluracursos/mysql-db:1
+        ports:
+        - containerPort: 3306
+        envFrom:
+          - configMapRef:
+              name: db-configmap
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+          periodSeconds: 10
+          failureThreshold: 3
+          initialDelaySeconds: 20
+        readinessProbe:
+          tcpSocket:
+            port: 3306
+          periodSeconds: 10
+          failureThreshold: 5 # tenta sucesso por 5 vezex
+          initialDelaySeconds: 10
+        

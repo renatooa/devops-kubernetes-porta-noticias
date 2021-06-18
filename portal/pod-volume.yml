@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volume
+spec:
+  containers:
+  - name: nginx-cont
+    image: nginx:stable
+    volumeMounts:
+      - mountPath: /volume
+        name: primeiro-volume
+    ports:
+      - containerPort: 80
+  - name: jenkins-cont
+    image: jenkins/jenkins:alpine
+    volumeMounts:
+      - mountPath: /volume
+        name: primeiro-volume    
+  volumes:
+    - name: primeiro-volume
+      hostPath:
+        path: /D/kubevolume
+        type: DirectoryOrCreate
