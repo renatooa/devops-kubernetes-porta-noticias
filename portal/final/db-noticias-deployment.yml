@@ -20,6 +20,8 @@ spec:
         envFrom:
           - configMapRef:
               name: db-configmap
+          #- secretRef
+           #   name: db-configmap          
         livenessProbe:
           tcpSocket:
             port: 3306
